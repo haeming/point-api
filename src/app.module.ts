@@ -1,12 +1,9 @@
-import express from "express";
-import cors from "cors";
+import { Module } from '@nestjs/common';
+import {MemoryDb} from "./common/data/memory.db";
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-app.get("/", (req, res) => {
-    res.send("Server is running");
-});
-
-app.listen(3000, () => console.log("Server running on port 3000"));
+@Module({
+    imports: [],
+    controllers: [],
+    providers: [MemoryDb],
+})
+export class AppModule {}
