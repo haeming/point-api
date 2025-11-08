@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
+export interface User {
+    userId: string;
+    password: string;
+}
+
 export interface PointTransaction {
     id: number;
     userId: string;
@@ -10,9 +15,20 @@ export interface PointTransaction {
 
 @Injectable()
 export class MemoryDb{
+    private users: User[] = [];
     private balances = new Map<string, number>();
     private history: PointTransaction[] = [];
     private nextTransactionId = 1;
+
+    // 유저 정보 저장
+    saveUser(user:User) {
+        this.users.push(user);
+    }
+
+    // 유저 조회
+    public findUserById(userId: string): User | undefined {
+        return this.users.find((u) => u.userId === userId);
+    }
 
     // 현재 잔액 조회
     public getBalance(userId: string): number{
