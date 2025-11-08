@@ -21,6 +21,11 @@ export class AuthService {
     }
 
     async login(input: LoginInputDto): Promise<LoginOutputDto> {
+        const user = this.db.findUserById(input.userId);
+        if(!user || user.password != input.password){
+            throw new BadRequestException("아이디 혹은 비밀번호가 올바르지 않습니다.");
+        }
+
         const payload = {sub: input.userId};
         return {
             token: this.jwtService.sign(payload),
