@@ -1,4 +1,5 @@
 export class LoginOutputDto {
-    access_token!: string;
+    token!: string;
     expiresIn!: number;
+    userId!: string;
 }
