@@ -5,7 +5,7 @@ export interface User {
     password: string;
 }
 
-export interface PointTransaction {
+export interface PointHistory {
     id: number;
     userId: string;
     type: 'EARN' | 'USE';
@@ -17,12 +17,13 @@ export interface PointTransaction {
 export class MemoryDb{
     private users: User[] = [];
     private balances = new Map<string, number>();
-    private history: PointTransaction[] = [];
+    private history: PointHistory[] = [];
     private nextTransactionId = 1;
 
     // 유저 정보 저장
     saveUser(user:User) {
         this.users.push(user);
+        this.balances.set(user.userId, 0);
     }
 
     // 유저 조회
@@ -54,7 +55,7 @@ export class MemoryDb{
     }
 
     // 거래 내역 조회
-    public getHistory(userId: string): PointTransaction[] {
+    public getHistory(userId: string): PointHistory[] {
         return this.history
             .filter(t => t.userId === userId)
             .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
@@ -62,7 +63,7 @@ export class MemoryDb{
 
     // 거래 내역 추가
     private addHistory(userId: string, type: 'EARN' | 'USE', amount: number): void {
-        const newTransaction: PointTransaction = {
+        const newTransaction: PointHistory = {
             id: this.nextTransactionId++,
             userId,
             type,
