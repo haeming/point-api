@@ -16,7 +16,7 @@ export class AuthService {
             throw new BadRequestException("이미 존재하는 계정입니다.");
         }
 
-        this.db.saveUser({userId: input.userId,password: input.password});
+        this.db.saveUser({userId: input.userId, password: input.password});
         return {userId: input.userId, success: true};
     }
 
