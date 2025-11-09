@@ -5,7 +5,7 @@ import {LoginResponseDto} from "../dtos/login.response.dto";
 import {SignupRequestDto} from "../dtos/signup.request.dto";
 import {SignupResponseDto} from "../dtos/signup.response.dto";
 
-@Controller("auth")
+@Controller("api/auth")
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
