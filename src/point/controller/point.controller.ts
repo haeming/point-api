@@ -25,4 +25,17 @@ export class PointController {
 
         return await this.pointService.earnPoint(input);
     }
+
+    @Post("use/:userId")
+    async usePoint(
+        @Param("userId") userId: string,
+        @Body() body: {amount: number | string}
+    ): Promise<PointTransactionResponseDto> {
+        const input: PointTransactionRequestDto = {
+            userId,
+            amount: Number(body.amount)
+        };
+
+        return await this.pointService.usePoint(input);
+    }
 }
