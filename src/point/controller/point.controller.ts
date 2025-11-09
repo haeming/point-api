@@ -1,15 +1,15 @@
 import {Body, Controller, Get, Param, Post} from "@nestjs/common";
 import {PointService} from "../service/point.service";
-import {BalanceResponseDto} from "./dtos/balance.response.dto";
-import {EarnOutputDto} from "../service/dtos/earn.output.dto";
-import {EarnInputDto} from "../service/dtos/earn.input.dto";
+import {EarnOutputDto} from "../dtos/earn.output.dto";
+import {EarnInputDto} from "../dtos/earn.input.dto";
+import {BalanceOutputDto} from "../dtos/balance.output.dto";
 
 @Controller("api/point")
 export class PointController {
     constructor(private readonly pointService: PointService) {}
 
     @Get("balance/:userId")
-    async getBalance(@Param("userId") userId: string): Promise<BalanceResponseDto> {
+    async getBalance(@Param("userId") userId: string): Promise<BalanceOutputDto> {
         const result = await this.pointService.getBalance({userId});
         return {
             balance: result.balance

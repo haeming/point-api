@@ -1,9 +1,9 @@
 import {Injectable} from "@nestjs/common";
 import {MemoryDb} from "../../common/data/memory.db";
-import {BalanceInputDto} from "./dtos/balance.input.dto";
-import {BalanceOutputDto} from "./dtos/balance.output.dto";
-import {EarnInputDto} from "./dtos/earn.input.dto";
-import {EarnOutputDto} from "./dtos/earn.output.dto";
+import {BalanceInputDto} from "../dtos/balance.input.dto";
+import {BalanceOutputDto} from "../dtos/balance.output.dto";
+import {EarnInputDto} from "../dtos/earn.input.dto";
+import {EarnOutputDto} from "../dtos/earn.output.dto";
 
 @Injectable()
 export class PointService {
