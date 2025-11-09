@@ -1,26 +1,26 @@
 import {BadRequestException, Injectable} from "@nestjs/common";
 import {JwtService} from "@nestjs/jwt";
-import {LoginInputDto} from "./dtos/login.input.dto";
-import {LoginOutputDto} from "./dtos/login.output.dto";
-import {SignupInputDto} from "./dtos/signup.input.dto";
-import {SignupOutputDto} from "./dtos/signup.output.dto";
 import {MemoryDb} from "../../common/data/memory.db";
+import {SignupRequestDto} from "../dtos/signup.request.dto";
+import {SignupResponseDto} from "../dtos/signup.response.dto";
+import {LoginRequestDto} from "../dtos/login.request.dto";
+import {LoginResponseDto} from "../dtos/login.response.dto";
 
 @Injectable()
 export class AuthService {
     constructor(private readonly jwtService: JwtService, private readonly db: MemoryDb) {}
 
-    async signup(input: SignupInputDto): Promise<SignupOutputDto> {
+    async signup(input: SignupRequestDto): Promise<SignupResponseDto> {
         const exits = this.db.findUserById(input.userId);
         if(exits){
             throw new BadRequestException("이미 존재하는 계정입니다.");
         }
 
         this.db.saveUser({userId: input.userId, password: input.password});
-        return {userId: input.userId, success: true};
+        return {userId: input.userId, message: "회원가입에 성공했습니다."};
     }
 
-    async login(input: LoginInputDto): Promise<LoginOutputDto> {
+    async login(input: LoginRequestDto): Promise<LoginResponseDto> {
         const user = this.db.findUserById(input.userId);
         if(!user || user.password != input.password){
             throw new BadRequestException("아이디 혹은 비밀번호가 올바르지 않습니다.");

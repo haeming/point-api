@@ -1,9 +1,9 @@
 import {Body, Controller, Post} from "@nestjs/common";
 import {AuthService} from "../service/auth.service";
-import {LoginRequestDto} from "./dtos/login.request.dto";
-import {LoginResponseDto} from "./dtos/login.response.dto";
-import {SignupRequestDto} from "./dtos/signup.request.dto";
-import {SignupResponseDto} from "./dtos/signup.response.dto";
+import {LoginRequestDto} from "../dtos/login.request.dto";
+import {LoginResponseDto} from "../dtos/login.response.dto";
+import {SignupRequestDto} from "../dtos/signup.request.dto";
+import {SignupResponseDto} from "../dtos/signup.response.dto";
 
 @Controller("auth")
 export class AuthController {
@@ -17,7 +17,7 @@ export class AuthController {
         });
         return {
             userId: result.userId,
-            message: "회원가입이 완료되었습니다."
+            message: result.message
         }
     }
 
