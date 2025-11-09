@@ -4,6 +4,7 @@ import {BalanceRequestDto} from "../dtos/balance.request.dto";
 import {BalanceResponseDto} from "../dtos/balance.response.dto";
 import {PointTransactionResponseDto} from "../dtos/point-transaction.response.dto";
 import {PointTransactionRequestDto} from "../dtos/point-transaction.request.dto";
+import {TransactionType} from "../../common/enum/transaction-type.enum";
 
 @Injectable()
 export class PointService {
@@ -17,7 +18,7 @@ export class PointService {
     }
 
     async earnPoint(request: PointTransactionRequestDto): Promise<PointTransactionResponseDto> {
-        const newBalance = this.db.updateBalance(request.userId, request.amount, 'EARN');
+        const newBalance = this.db.updateBalance(request.userId, request.amount, TransactionType.EARN);
         const history = this.db.getHistory(request.userId)[0];
 
         return {
@@ -30,7 +31,7 @@ export class PointService {
     }
 
     async usePoint(request: PointTransactionRequestDto): Promise<PointTransactionResponseDto> {
-        const newBalance = this.db.updateBalance(request.userId, request.amount, 'USE');
+        const newBalance = this.db.updateBalance(request.userId, request.amount, TransactionType.USE);
         const history = this.db.getHistory(request.userId)[0];
 
         return {
