@@ -39,8 +39,7 @@ export class MemoryDb{
 
     // 잔액 업데이트
     public updateBalance(userId: string, amount: number, type: TransactionType): number {
-        const currentBalance = this.getBalance(userId);
-        let newBalance = currentBalance;
+        let newBalance = this.getBalance(userId);
 
         const commit = () => {
             this.balances.set(userId, newBalance);
