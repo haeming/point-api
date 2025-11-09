@@ -66,7 +66,7 @@ export class MemoryDb{
     }
 
     // 거래 내역 추가
-    private addHistory(userId: string, type: 'EARN' | 'USE', amount: number): void {
+    private addHistory(userId: string, type: TransactionType, amount: number): void {
         const newTransaction: PointTransaction = {
             id: this.nextTransactionId++,
             userId,
