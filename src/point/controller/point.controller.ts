@@ -10,10 +10,7 @@ export class PointController {
 
     @Get("balance/:userId")
     async getBalance(@Param("userId") userId: string): Promise<BalanceResponseDto> {
-        const result = await this.pointService.getBalance({userId});
-        return {
-            balance: result.balance
-        }
+        return await this.pointService.getBalance({userId});
     }
 
     @Post("earn/:userId")
@@ -25,7 +22,7 @@ export class PointController {
             userId,
             amount: Number(body.amount)
         };
-        const result = await this.pointService.earnPoint(input);
-        return result;
+
+        return await this.pointService.earnPoint(input);
     }
 }
