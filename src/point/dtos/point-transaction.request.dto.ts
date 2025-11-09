@@ -1,4 +1,4 @@
-export class EarnRequestDto {
+export class PointTransactionRequestDto {
     userId!: string;
     amount!: number;
 }

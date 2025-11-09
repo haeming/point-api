@@ -1,7 +1,7 @@
 import {Body, Controller, Get, Param, Post} from "@nestjs/common";
 import {PointService} from "../service/point.service";
-import {EarnResponseDto} from "../dtos/earn.response.dto";
-import {EarnRequestDto} from "../dtos/earn.request.dto";
+import {PointTransactionResponseDto} from "../dtos/point-transaction.response.dto";
+import {EarnRequestDto} from "../dtos/point-transaction.request.dto";
 import {BalanceResponseDto} from "../dtos/balance.response.dto";
 
 @Controller("api/point")
@@ -20,7 +20,7 @@ export class PointController {
     async earnPoint(
         @Param("userId") userId: string,
         @Body() body: {amount: number | string}
-    ): Promise<EarnResponseDto> {
+    ): Promise<PointTransactionResponseDto> {
         const input: EarnRequestDto = {
             userId,
             amount: Number(body.amount)

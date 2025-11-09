@@ -2,8 +2,8 @@ import {Injectable} from "@nestjs/common";
 import {MemoryDb} from "../../common/data/memory.db";
 import {BalanceRequestDto} from "../dtos/balance.request.dto";
 import {BalanceResponseDto} from "../dtos/balance.response.dto";
-import {EarnRequestDto} from "../dtos/earn.request.dto";
-import {EarnResponseDto} from "../dtos/earn.response.dto";
+import {PointTransactionResponseDto} from "../dtos/point-transaction.response.dto";
+import {PointTransactionRequestDto} from "../dtos/point-transaction.request.dto";
 
 @Injectable()
 export class PointService {
@@ -16,7 +16,7 @@ export class PointService {
         }
     }
 
-    async earnPoint(request: EarnRequestDto): Promise<EarnResponseDto> {
+    async earnPoint(request: PointTransactionRequestDto): Promise<PointTransactionResponseDto> {
         const newBalance = this.db.updateBalance(request.userId, request.amount, 'EARN');
         const history = this.db.getHistory(request.userId)[0];
 
