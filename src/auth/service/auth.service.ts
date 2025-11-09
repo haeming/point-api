@@ -8,7 +8,7 @@ import {MemoryDb} from "../../common/data/memory.db";
 
 @Injectable()
 export class AuthService {
-    constructor(private jwtService: JwtService, private db: MemoryDb) {}
+    constructor(private readonly jwtService: JwtService, private readonly db: MemoryDb) {}
 
     async signup(input: SignupInputDto): Promise<SignupOutputDto> {
         const exits = this.db.findUserById(input.userId);
