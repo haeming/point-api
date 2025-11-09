@@ -1,5 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {TransactionType} from "../enum/transaction-type.enum";
+import {BalanceException} from "../exceptions/balance.exception";
 
 export interface User {
     userId: string;
@@ -56,7 +57,7 @@ export class MemoryDb{
         // 포인트 사용
         if (type === TransactionType.USE) {
             newBalance -= amount;
-            if (newBalance < 0) throw new Error("잔액이 부족합니다.");
+            if (newBalance < 0) throw new BalanceException();
             return commit();
         }
 
