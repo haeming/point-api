@@ -62,7 +62,7 @@ export class MemoryDb{
     public getHistory(userId: string): PointTransaction[] {
         return this.history
             .filter(t => t.userId === userId)
-            .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+            .reverse();
     }
 
     // 거래 내역 추가
