@@ -1,29 +1,29 @@
 import {Injectable} from "@nestjs/common";
 import {MemoryDb} from "../../common/data/memory.db";
-import {BalanceInputDto} from "../dtos/balance.input.dto";
-import {BalanceOutputDto} from "../dtos/balance.output.dto";
-import {EarnInputDto} from "../dtos/earn.input.dto";
-import {EarnOutputDto} from "../dtos/earn.output.dto";
+import {BalanceRequestDto} from "../dtos/balance.request.dto";
+import {BalanceResponseDto} from "../dtos/balance.response.dto";
+import {EarnRequestDto} from "../dtos/earn.request.dto";
+import {EarnResponseDto} from "../dtos/earn.response.dto";
 
 @Injectable()
 export class PointService {
     constructor(private readonly db: MemoryDb) {}
 
-    async getBalance(input: BalanceInputDto): Promise<BalanceOutputDto> {
-        const balance = this.db.getBalance(input.userId);
+    async getBalance(request: BalanceRequestDto): Promise<BalanceResponseDto> {
+        const balance = this.db.getBalance(request.userId);
         return {
             balance: balance
         }
     }
 
-    async earnPoint(input: EarnInputDto): Promise<EarnOutputDto> {
-        const newBalance = this.db.updateBalance(input.userId, input.amount, 'EARN');
-        const history = this.db.getHistory(input.userId)[0];
+    async earnPoint(request: EarnRequestDto): Promise<EarnResponseDto> {
+        const newBalance = this.db.updateBalance(request.userId, request.amount, 'EARN');
+        const history = this.db.getHistory(request.userId)[0];
 
         return {
-            userId: input.userId,
+            userId: request.userId,
             newBalance,
-            earnedAmount: input.amount,
+            earnedAmount: request.amount,
             transactionId: history.id,
             timestamp: history.timestamp
         };

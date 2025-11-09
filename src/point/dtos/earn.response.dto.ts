@@ -1,4 +1,4 @@
-export class EarnOutputDto {
+export class EarnResponseDto {
     userId!: string;
     newBalance!: number;
     earnedAmount!: number;
