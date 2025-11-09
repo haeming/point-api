@@ -18,20 +18,18 @@ export class PointService {
     }
 
     async earnPoint(request: PointTransactionRequestDto): Promise<PointTransactionResponseDto> {
-        const newBalance = this.db.updateBalance(request.userId, request.amount, TransactionType.EARN);
-        const history = this.db.getHistory(request.userId)[0];
-
-        return {
-            userId: request.userId,
-            newBalance,
-            amount: request.amount,
-            transactionId: history.id,
-            timestamp: history.timestamp
-        };
+        return this.processTransaction(request, TransactionType.EARN);
     }
 
     async usePoint(request: PointTransactionRequestDto): Promise<PointTransactionResponseDto> {
-        const newBalance = this.db.updateBalance(request.userId, request.amount, TransactionType.USE);
+        return this.processTransaction(request, TransactionType.USE);
+    }
+
+    private processTransaction(
+        request: PointTransactionRequestDto,
+        type: TransactionType
+    ): PointTransactionResponseDto {
+        const newBalance = this.db.updateBalance(request.userId, request.amount, type);
         const history = this.db.getHistory(request.userId)[0];
 
         return {
@@ -39,7 +37,7 @@ export class PointService {
             newBalance,
             amount: request.amount,
             transactionId: history.id,
-            timestamp: history.timestamp
-        }
+            timestamp: history.timestamp,
+        };
     }
 }
