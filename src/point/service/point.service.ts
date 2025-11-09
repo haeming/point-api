@@ -23,9 +23,22 @@ export class PointService {
         return {
             userId: request.userId,
             newBalance,
-            earnedAmount: request.amount,
+            amount: request.amount,
             transactionId: history.id,
             timestamp: history.timestamp
         };
+    }
+
+    async usePoint(request: PointTransactionRequestDto): Promise<PointTransactionResponseDto> {
+        const newBalance = this.db.updateBalance(request.userId, request.amount, 'USE');
+        const history = this.db.getHistory(request.userId)[0];
+
+        return {
+            userId: request.userId,
+            newBalance,
+            amount: request.amount,
+            transactionId: history.id,
+            timestamp: history.timestamp
+        }
     }
 }

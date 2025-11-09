@@ -1,7 +1,7 @@
 export class PointTransactionResponseDto {
     userId!: string;
     newBalance!: number;
-    earnedAmount!: number;
+    amount!: number;
     transactionId!: number;
     timestamp!: Date;
 }

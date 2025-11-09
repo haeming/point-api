@@ -1,8 +1,8 @@
 import {Body, Controller, Get, Param, Post} from "@nestjs/common";
 import {PointService} from "../service/point.service";
 import {PointTransactionResponseDto} from "../dtos/point-transaction.response.dto";
-import {EarnRequestDto} from "../dtos/point-transaction.request.dto";
 import {BalanceResponseDto} from "../dtos/balance.response.dto";
+import {PointTransactionRequestDto} from "../dtos/point-transaction.request.dto";
 
 @Controller("api/point")
 export class PointController {
@@ -21,7 +21,7 @@ export class PointController {
         @Param("userId") userId: string,
         @Body() body: {amount: number | string}
     ): Promise<PointTransactionResponseDto> {
-        const input: EarnRequestDto = {
+        const input: PointTransactionRequestDto = {
             userId,
             amount: Number(body.amount)
         };
