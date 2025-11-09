@@ -9,7 +9,7 @@ export interface User {
 export interface PointTransaction {
     id: number;
     userId: string;
-    type: 'EARN' | 'USE';
+    type: TransactionType;
     amount: number;
     timestamp: Date;
 }
