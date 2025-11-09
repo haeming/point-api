@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
+import {TransactionType} from "../enum/transaction-type.enum";
 
 export interface User {
     userId: string;
@@ -37,14 +38,17 @@ export class MemoryDb{
     }
 
     // 잔액 업데이트
-    public updateBalance(userId: string, amount: number, type: 'EARN' | 'USE'): number {
+    public updateBalance(userId: string, amount: number, type: TransactionType): number {
         const currentBalance = this.getBalance(userId);
         let newBalance = currentBalance;
 
-        if (type === 'EARN') {
+        if (type === TransactionType.EARN) {
             newBalance += amount;
-        } else if (type === 'USE') {
+        } else if (TransactionType.USE) {
             newBalance -= amount;
+            if (newBalance < 0){
+                throw new Error("잔액이 부족합니다.");
+            }
         } else {
             throw new Error('Invalid transaction type');
         }
