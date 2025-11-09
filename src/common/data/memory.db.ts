@@ -42,27 +42,26 @@ export class MemoryDb{
         const currentBalance = this.getBalance(userId);
         let newBalance = currentBalance;
 
-        // 포인트 적립
-        if (type === TransactionType.EARN) {
-            newBalance += amount;
+        const commit = () => {
             this.balances.set(userId, newBalance);
             this.addHistory(userId, type, amount);
             return newBalance;
+        };
+
+        // 포인트 적립
+        if (type === TransactionType.EARN) {
+            newBalance += amount;
+            return commit();
         }
 
         // 포인트 사용
         if (type === TransactionType.USE) {
             newBalance -= amount;
-            if (newBalance < 0) {
-                throw new Error("잔액이 부족합니다.");
-            }
-
-            this.balances.set(userId, newBalance);
-            this.addHistory(userId, type, amount);
-            return newBalance;
+            if (newBalance < 0) throw new Error("잔액이 부족합니다.");
+            return commit();
         }
 
-        throw new Error("Invalid transaction type");
+        throw new Error("잘못된 거래 유형입니다.");
     }
 
     // 거래 내역 조회
