@@ -19,11 +19,11 @@ export class PointController {
     @Post("earn/:userId")
     async earnPoint(
         @Param("userId") userId: string,
-        @Body() body: {amount: number}
+        @Body() body: {amount: number | string}
     ): Promise<EarnOutputDto> {
         const input: EarnInputDto = {
             userId,
-            amount: body.amount
+            amount: Number(body.amount)
         };
         const result = await this.pointService.earnPoint(input);
         return result;
